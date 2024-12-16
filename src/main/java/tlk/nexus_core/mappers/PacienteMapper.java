@@ -32,6 +32,7 @@ public class PacienteMapper {
   // Mapeamento de PacienteUpdateDTO para PacienteModel
   public PacienteModel toModel(@Valid PacienteUpdateDTO dto) {
     PacienteModel model = new PacienteModel();
+    model.setAtivo(dto.getAtivo());
     model.setNome(dto.getNome());
     model.setNomeCurto(dto.getNomeCurto());
     model.setSexo(dto.getSexo());

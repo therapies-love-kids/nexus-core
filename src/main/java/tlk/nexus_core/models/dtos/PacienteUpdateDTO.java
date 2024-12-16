@@ -10,6 +10,10 @@ import lombok.Data;
 @Data
 public class PacienteUpdateDTO {
 
+  @Schema(description = "Indica se o paciente está ativo", example = "true")
+  @JsonProperty("ativo")
+  private Boolean ativo;
+
   @Schema(description = "Nome do paciente", example = "João da Silva")
   @JsonProperty("nome")
   private String nome;
