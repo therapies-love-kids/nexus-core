@@ -1,9 +1,11 @@
 package tlk.nexus_core.models;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -11,19 +13,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "representantes")
-@Data
 public class RepresentanteModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @JsonProperty("id")
   @Column(name = "id", updatable = false, nullable = false)
-  private Integer id;
+  private Long id;
 
   @JsonProperty("ativo")
   @Column(name = "ativo", nullable = false)
@@ -53,5 +58,23 @@ public class RepresentanteModel {
   @JsonProperty("contatos")
   @Column(name = "contatos", length = 128)
   private String contatos;
+
+  @ManyToMany
+  @JsonIgnore
+  @JoinTable(
+    name = "vinculos",
+    joinColumns = @JoinColumn(name = "paciente_id"),
+    inverseJoinColumns = @JoinColumn(name = "representante_id")
+  )
+  private List<PacienteModel> pacientesVinculos;
+
+  @ManyToMany
+  @JsonIgnore
+  @JoinTable(
+    name = "contratos",
+    joinColumns = @JoinColumn(name = "paciente_id"),
+    inverseJoinColumns = @JoinColumn(name = "representante_id")
+  )
+  private List<PacienteModel> pacientesContratos;
 
 }

@@ -2,9 +2,11 @@ package tlk.nexus_core.models;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -12,6 +14,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -25,7 +30,7 @@ public class PacienteModel {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @JsonProperty("id")
   @Column(name = "id", updatable = false, nullable = false)
-  private Integer id;
+  private Long id;
 
   @JsonProperty("ativo")
   @Column(name = "ativo", nullable = false)
@@ -90,5 +95,23 @@ public class PacienteModel {
   @JsonProperty("observacoes")
   @Column(name = "observacoes", columnDefinition = "TEXT")
   private String observacoes;
+
+  @ManyToMany
+  @JsonIgnore
+  @JoinTable(
+    name = "vinculos",
+    joinColumns = @JoinColumn(name = "paciente_id"),
+    inverseJoinColumns = @JoinColumn(name = "representante_id")
+  )
+  private List<RepresentanteModel> representantesVinculos;
+
+  @ManyToMany
+  @JsonIgnore
+  @JoinTable(
+    name = "contratos",
+    joinColumns = @JoinColumn(name = "paciente_id"),
+    inverseJoinColumns = @JoinColumn(name = "representante_id")
+  )
+  private List<RepresentanteModel> representantesContratos;
 
 }

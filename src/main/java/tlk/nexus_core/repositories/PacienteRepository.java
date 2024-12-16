@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import tlk.nexus_core.models.PacienteModel;
 
 @Repository
-public interface PacienteRepository extends JpaRepository<PacienteModel, Integer> {
+public interface PacienteRepository extends JpaRepository<PacienteModel, Long> {
 
   List<PacienteModel> findByNomeContaining(String nome);
 
