@@ -19,6 +19,7 @@ import jakarta.validation.Valid;
 import tlk.nexus_core.mappers.RepresentanteMapper;
 import tlk.nexus_core.models.RepresentanteModel;
 import tlk.nexus_core.models.dtos.RepresentanteCreateDTO;
+import tlk.nexus_core.models.dtos.RepresentanteUpdateDTO;
 import tlk.nexus_core.services.RepresentanteService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -87,9 +88,31 @@ public class RepresentanteController {
 
   @PutMapping("/{id}")
   @Operation(description = "Endpoint para atualizar um representante")
-  public ResponseEntity<Object> update(@PathVariable Long id, @Valid @RequestBody RepresentanteCreateDTO dto) {
+  public ResponseEntity<Object> update(@PathVariable Long id, @Valid @RequestBody RepresentanteUpdateDTO dto) {
     try {
       RepresentanteModel representante = service.update(id, mapper.toModel(dto));
+      return ResponseEntity.status(HttpStatus.OK).body(representante);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+  }
+
+  @PutMapping("/ativar/{id}")
+  @Operation(description = "Endpoint para ativar um representante")
+  public ResponseEntity<Object> activate(@PathVariable Long id) {
+    try {
+      RepresentanteModel representante = service.activate(id);
+      return ResponseEntity.status(HttpStatus.OK).body(representante);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+  }
+
+  @PutMapping("/inativar/{id}")
+  @Operation(description = "Endpoint para inativar um representante")
+  public ResponseEntity<Object> inactivate(@PathVariable Long id) {
+    try {
+      RepresentanteModel representante = service.inactivate(id);
       return ResponseEntity.status(HttpStatus.OK).body(representante);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

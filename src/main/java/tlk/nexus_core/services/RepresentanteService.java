@@ -42,7 +42,28 @@ public class RepresentanteService {
     return repository.save(representante);
   }
 
+  public RepresentanteModel activate(Long id) {
+    RepresentanteModel representante = repository.findById(id).orElse(null);
+    if (representante == null) {
+      throw new IllegalArgumentException("Representante não encontrado.");
+    }
+    representante.setAtivo(true);
+    return repository.save(representante);
+  }
+
+  public RepresentanteModel inactivate(Long id) {
+    RepresentanteModel representante = repository.findById(id).orElse(null);
+    if (representante == null) {
+      throw new IllegalArgumentException("Representante não encontrado.");
+    }
+    representante.setAtivo(false);
+    return repository.save(representante);
+  }
+
   private void updateDataDB(RepresentanteModel representante, RepresentanteModel representanteUpdate) {
+    if (representanteUpdate.getAtivo() != null) {
+      representante.setAtivo(representanteUpdate.getAtivo());
+    }
     if (representanteUpdate.getNome() != null) {
       representante.setNome(representanteUpdate.getNome());
     }
