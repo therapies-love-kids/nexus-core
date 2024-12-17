@@ -55,5 +55,19 @@ public class RepresentanteController {
     }
   }
 
+  @GetMapping("/{id}")
+  @Operation(description = "Endpoint para buscar um representante pelo ID")
+  public ResponseEntity<Object> getById(Long id) {
+    try {
+      RepresentanteModel representante = service.getById(id);
+      if (representante == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Representante não encontrado");
+      }
+      return ResponseEntity.status(HttpStatus.OK).body(representante);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+  }
+
 }
 

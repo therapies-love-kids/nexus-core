@@ -24,6 +24,10 @@ public class RepresentanteService {
     return repository.findAll();
   }
 
+  public RepresentanteModel getById(Long id) {
+    return repository.findById(id).orElse(null);
+  }
+
   // Validação de regras de negócio
   public RepresentanteModel validateBusinessLogic(RepresentanteModel representante) {
     String nome = representante.getNome();
