@@ -41,6 +41,10 @@ public class PacienteModel {
   @Column(name = "data_hora_criacao", updatable = false, nullable = false)
   private ZonedDateTime dataHoraCriacao;
 
+  @JsonProperty("codigo")
+  @Column(name = "codigo", unique = true, nullable = false, updatable = false, length = 16)
+  private String codigo;
+
   @NotBlank
   @JsonProperty("nome")
   @Column(name = "nome", nullable = false, length = 64)
