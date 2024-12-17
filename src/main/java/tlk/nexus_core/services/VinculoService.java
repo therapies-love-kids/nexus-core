@@ -26,6 +26,53 @@ public class VinculoService {
     return repository.findAll();
   }
 
+  public VinculoModel getById(Long id) {
+    return repository.findById(id).orElse(null);
+  }
+
+  public VinculoModel update(Long id, @Valid VinculoModel vinculoUpdate) {
+    VinculoModel vinculo = repository.findById(id).orElse(null);
+    if (vinculo == null) {
+      throw new IllegalArgumentException("Vinculo não encontrado.");
+    }
+    vinculoUpdate = validateBusinessLogic(vinculoUpdate);
+    updateDataDB(vinculo, vinculoUpdate);
+    return repository.save(vinculo);
+  }
+
+  public VinculoModel activate(Long id) {
+    VinculoModel vinculo = repository.findById(id).orElse(null);
+    if (vinculo == null) {
+      throw new IllegalArgumentException("Vinculo não encontrado.");
+    }
+    vinculo.setAtivo(true);
+    return repository.save(vinculo);
+  }
+
+  public VinculoModel inactivate(Long id) {
+    VinculoModel vinculo = repository.findById(id).orElse(null);
+    if (vinculo == null) {
+      throw new IllegalArgumentException("Vinculo não encontrado.");
+    }
+    vinculo.setAtivo(false);
+    return repository.save(vinculo);
+  }
+
+  public void updateDataDB(VinculoModel vinculo, VinculoModel vinculoUpdate) {
+    if (vinculoUpdate.getAtivo() != null) {
+      vinculo.setAtivo(vinculoUpdate.getAtivo());
+    }
+    if (vinculoUpdate.getPaciente() != null) {
+      vinculo.setPaciente(vinculoUpdate.getPaciente());
+    }
+    if (vinculoUpdate.getRepresentante() != null) {
+      vinculo.setRepresentante(vinculoUpdate.getRepresentante());
+    }
+    if (vinculoUpdate.getTipo() != null) {
+      vinculo.setTipo(vinculoUpdate.getTipo());
+    }
+  }
+
   public VinculoModel validateBusinessLogic(VinculoModel vinculo) {
     PacienteModel paciente = vinculo.getPaciente();
     RepresentanteModel representante = vinculo.getRepresentante();
