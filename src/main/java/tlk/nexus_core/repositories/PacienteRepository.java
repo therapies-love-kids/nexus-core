@@ -14,10 +14,12 @@ public interface PacienteRepository extends JpaRepository<PacienteModel, Long> {
 
   List<PacienteModel> findByNomeContainingIgnoreCase(String nome);
 
-  List<PacienteModel> findByNomeCurtoIgnoreCase(String nomeCurto);
+  PacienteModel findByNomeCurtoIgnoreCase(String nomeCurto);
 
-  List<PacienteModel> findByCertidaoNascimento(String certidaoNascimento);
+  List<PacienteModel> findByNomeCurtoContainingIgnoreCase(String nomeCurto);
 
-  List<PacienteModel> findByCpf(String cpf);
+  PacienteModel findByCertidaoNascimento(String certidaoNascimento);
+
+  PacienteModel findByCpf(String cpf);
 
 }

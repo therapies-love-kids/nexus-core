@@ -43,7 +43,7 @@ public class PacienteModel {
 
   @JsonProperty("codigo")
   @Column(name = "codigo", unique = true, nullable = false, updatable = false, length = 16)
-  private String codigo;
+  private String codigo = "";
 
   @NotBlank
   @JsonProperty("nome")
