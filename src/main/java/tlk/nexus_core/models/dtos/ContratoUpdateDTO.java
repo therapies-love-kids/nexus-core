@@ -8,6 +8,10 @@ import lombok.Data;
 @Data
 public class ContratoUpdateDTO {
   
+  @Schema(description = "Indica se o contrato está ativo", example = "true")
+  @JsonProperty("ativo")
+  private Boolean ativo;
+
   @Schema(description = "Código do paciente", example = "1")
   @JsonProperty("paciente_id")
   private Long pacienteId;

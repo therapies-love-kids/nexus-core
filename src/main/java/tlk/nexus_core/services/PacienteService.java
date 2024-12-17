@@ -61,7 +61,7 @@ public class PacienteService {
       throw new IllegalArgumentException("Paciente não encontrado.");
     }
     pacienteUpdate = validateUpdateBusinessLogic(paciente, pacienteUpdate);
-    updateDataBD(paciente, pacienteUpdate);
+    updateDataDB(paciente, pacienteUpdate);
     return repository.save(paciente);
   }
 
@@ -83,7 +83,7 @@ public class PacienteService {
     return repository.save(paciente);
   }
 
-  public void updateDataBD(@Valid PacienteModel paciente, @Valid PacienteModel pacienteUpdate) {
+  public void updateDataDB(@Valid PacienteModel paciente, @Valid PacienteModel pacienteUpdate) {
     if (pacienteUpdate.getAtivo() != null) {
       paciente.setAtivo(pacienteUpdate.getAtivo());
     }
