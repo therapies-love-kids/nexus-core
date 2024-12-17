@@ -69,7 +69,6 @@ public class PacienteController {
     }
   }
 
-  // getByCodigo
   @GetMapping("/codigo/{codigo}")
   @Operation(description = "Endpoint para buscar um paciente pelo codigo")
   public ResponseEntity<Object> getByCodigo(String codigo) {
@@ -79,6 +78,20 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente não encontrado");
       }
       return ResponseEntity.status(HttpStatus.OK).body(paciente);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+  }
+
+  @GetMapping("/nome/{nome}")
+  @Operation(description = "Endpoint para buscar pacientes pelo nome")
+  public ResponseEntity<Object> getByNome(String nome) {
+    try {
+      List<PacienteModel> pacientes = service.getByNome(nome);
+      if (pacientes.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum paciente encontrado");
+      }
+      return ResponseEntity.status(HttpStatus.OK).body(pacientes);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }

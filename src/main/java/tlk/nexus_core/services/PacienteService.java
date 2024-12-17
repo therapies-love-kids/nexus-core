@@ -33,6 +33,10 @@ public class PacienteService {
     return repository.findByCodigo(codigo);
   }
 
+  public List<PacienteModel> getByNome(String nome) {
+    return repository.findByNomeContainingIgnoreCase(nome);
+  }
+
   public PacienteModel validateBusinessLogic(PacienteModel paciente) {
     String codigo = paciente.getCodigo();
     String nome = paciente.getNome();
