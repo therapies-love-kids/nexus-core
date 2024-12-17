@@ -11,6 +11,7 @@ import lombok.Data;
 public class PacienteCreateDTO {
 
   @Schema(description = "Unidade do paciente", example = "ANA", required = true)
+  @NotBlank(message = "A unidade do paciente deve ser informada")
   @JsonProperty("unidade")
   private String unidade;
 
