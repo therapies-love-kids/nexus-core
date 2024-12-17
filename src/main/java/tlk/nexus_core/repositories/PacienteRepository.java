@@ -10,7 +10,7 @@ import tlk.nexus_core.models.PacienteModel;
 @Repository
 public interface PacienteRepository extends JpaRepository<PacienteModel, Long> {
 
-  PacienteModel findByCodigo(String codigo);
+  PacienteModel findByCodigoIgnoreCase(String codigo);
 
   List<PacienteModel> findByNomeContainingIgnoreCase(String nome);
 

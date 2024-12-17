@@ -30,7 +30,7 @@ public class PacienteService {
   }
 
   public PacienteModel getByCodigo(String codigo) {
-    return repository.findByCodigo(codigo);
+    return repository.findByCodigoIgnoreCase(codigo);
   }
 
   public List<PacienteModel> getByNome(String nome) {
@@ -97,7 +97,7 @@ public class PacienteService {
 
     /* Validação da unicidade dos campos únicos */
 
-    if (repository.findByCodigo(codigo) != null) {
+    if (repository.findByCodigoIgnoreCase(codigo) != null) {
       throw new IllegalArgumentException(
           "Código gerado já cadastrado.\n\n" +
           "A chance disso acontecer é praticamente a mesma que duas pessoas escolherem aleatoriamente a mesma estrela da Via Láctea.");
