@@ -25,6 +25,10 @@ public class PacienteService {
     return repository.findAll();
   }
 
+  public PacienteModel getById(Long id) {
+    return repository.findById(id).orElse(null);
+  }
+
   public PacienteModel validateBusinessLogic(PacienteModel paciente) {
     String codigo = paciente.getCodigo();
     String nome = paciente.getNome();

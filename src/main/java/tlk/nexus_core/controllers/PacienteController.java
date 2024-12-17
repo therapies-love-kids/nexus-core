@@ -47,9 +47,24 @@ public class PacienteController {
     try {
       List<PacienteModel> pacientes = service.getAll();
       if (pacientes.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Nenhum paciente encontrado");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum paciente encontrado");
       }
       return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+  }
+
+  /* getbyid */
+  @GetMapping("/{id}")
+  @Operation(description = "Endpoint para buscar um paciente pelo ID")
+  public ResponseEntity<Object> getById(Long id) {
+    try {
+      PacienteModel paciente = service.getById(id);
+      if (paciente == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente não encontrado");
+      }
+      return ResponseEntity.status(HttpStatus.OK).body(paciente);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
