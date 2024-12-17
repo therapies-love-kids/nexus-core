@@ -101,7 +101,7 @@ public class PacienteService {
       throw new IllegalArgumentException(
           "Código gerado já cadastrado.\n\n" +
           "A chance disso acontecer é praticamente a mesma que duas pessoas escolherem aleatoriamente a mesma estrela da Via Láctea.");
-    } else if (repository.findByNomeCurto(nomeCurto) != null && repository.findByNomeCurto(nomeCurto).size() > 0) {
+    } else if (repository.findByNomeCurtoIgnoreCase(nomeCurto) != null && repository.findByNomeCurtoIgnoreCase(nomeCurto).size() > 0) {
       throw new IllegalArgumentException("Nome curto já cadastrado.");
     } else if (repository.findByCertidaoNascimento(certidaoNascimento) != null
         && repository.findByCertidaoNascimento(certidaoNascimento).size() > 0) {
