@@ -55,5 +55,19 @@ public class VinculoController {
     }
   }
 
+  @GetMapping("/{id}")
+  @Operation(description = "Endpoint para buscar um vínculo pelo ID")
+  public ResponseEntity<Object> getById(Long id) {
+    try {
+      VinculoModel vinculo = service.getById(id);
+      if (vinculo == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vínculo não encontrado");
+      }
+      return ResponseEntity.status(HttpStatus.OK).body(vinculo);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+  }
+
 }
 

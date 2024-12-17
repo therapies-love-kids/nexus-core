@@ -26,6 +26,10 @@ public class VinculoService {
     return repository.findAll();
   }
 
+  public VinculoModel getById(Long id) {
+    return repository.findById(id).orElse(null);
+  }
+
   public VinculoModel validateBusinessLogic(VinculoModel vinculo) {
     PacienteModel paciente = vinculo.getPaciente();
     RepresentanteModel representante = vinculo.getRepresentante();
