@@ -26,6 +26,10 @@ public class ContratoService {
     return repository.findAll();
   }
 
+  public ContratoModel getById(Long id) {
+    return repository.findById(id).orElse(null);
+  }
+
   public ContratoModel validateBusinessLogic(ContratoModel contrato) {
     PacienteModel paciente = contrato.getPaciente();
     RepresentanteModel representante = contrato.getRepresentante();
