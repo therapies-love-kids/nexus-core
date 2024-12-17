@@ -10,7 +10,7 @@ import tlk.nexus_core.models.PacienteModel;
 @Repository
 public interface PacienteRepository extends JpaRepository<PacienteModel, Long> {
 
-  List<PacienteModel> findByCodigo(String codigo);
+  PacienteModel findByCodigo(String codigo);
 
   List<PacienteModel> findByNomeContaining(String nome);
 

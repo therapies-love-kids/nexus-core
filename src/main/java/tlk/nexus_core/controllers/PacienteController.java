@@ -55,12 +55,26 @@ public class PacienteController {
     }
   }
 
-  /* getbyid */
   @GetMapping("/{id}")
   @Operation(description = "Endpoint para buscar um paciente pelo ID")
   public ResponseEntity<Object> getById(Long id) {
     try {
       PacienteModel paciente = service.getById(id);
+      if (paciente == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente não encontrado");
+      }
+      return ResponseEntity.status(HttpStatus.OK).body(paciente);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+  }
+
+  // getByCodigo
+  @GetMapping("/codigo/{codigo}")
+  @Operation(description = "Endpoint para buscar um paciente pelo codigo")
+  public ResponseEntity<Object> getByCodigo(String codigo) {
+    try {
+      PacienteModel paciente = service.getByCodigo(codigo);
       if (paciente == null) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente não encontrado");
       }

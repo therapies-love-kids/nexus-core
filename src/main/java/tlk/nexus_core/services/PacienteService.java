@@ -29,6 +29,10 @@ public class PacienteService {
     return repository.findById(id).orElse(null);
   }
 
+  public PacienteModel getByCodigo(String codigo) {
+    return repository.findByCodigo(codigo);
+  }
+
   public PacienteModel validateBusinessLogic(PacienteModel paciente) {
     String codigo = paciente.getCodigo();
     String nome = paciente.getNome();
@@ -89,7 +93,7 @@ public class PacienteService {
 
     /* Validação da unicidade dos campos únicos */
 
-    if (repository.findByCodigo(codigo) != null && repository.findByCodigo(codigo).size() > 0) {
+    if (repository.findByCodigo(codigo) != null) {
       throw new IllegalArgumentException(
           "Código gerado já cadastrado.\n\n" +
           "A chance disso acontecer é praticamente a mesma que duas pessoas escolherem aleatoriamente a mesma estrela da Via Láctea.");
