@@ -28,6 +28,10 @@ public class RepresentanteService {
     return repository.findById(id).orElse(null);
   }
 
+  public RepresentanteModel getByCpf(String cpf) {
+    return repository.findByCpf(cpf);
+  }
+
   // Validação de regras de negócio
   public RepresentanteModel validateBusinessLogic(RepresentanteModel representante) {
     String nome = representante.getNome();
@@ -42,7 +46,7 @@ public class RepresentanteService {
     }
 
     // Validação dos campos únicos
-    if (repository.findByCpf(cpf) != null && repository.findByCpf(cpf).size() > 0) {
+    if (repository.findByCpf(cpf) != null) {
       throw new IllegalArgumentException("CPF já cadastrado.");
     }
 

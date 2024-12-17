@@ -8,10 +8,8 @@ import tlk.nexus_core.models.RepresentanteModel;
 
 public interface RepresentanteRepository extends JpaRepository<RepresentanteModel, Long> {
 
-  List<RepresentanteModel> findByNomeContaining(String nome);
+  List<RepresentanteModel> findByNomeContainingIgnoreCase(String nome);
 
-  List<RepresentanteModel> findByCpf(String cpf);
-
-  List<RepresentanteModel> findByRg(String rg);
+  RepresentanteModel findByCpf(String cpf);
 
 }
