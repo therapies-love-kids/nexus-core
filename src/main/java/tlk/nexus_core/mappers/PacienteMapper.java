@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import tlk.nexus_core.models.PacienteModel;
 import tlk.nexus_core.models.dtos.PacienteCreateDTO;
 import tlk.nexus_core.models.dtos.PacienteUpdateDTO;
+import tlk.nexus_core.utils.CodigoGenerator;
 
 @Component
 public class PacienteMapper {
@@ -13,6 +14,7 @@ public class PacienteMapper {
   // Mapeamento de PacienteCreateDTO para PacienteModel
   public PacienteModel toModel(@Valid PacienteCreateDTO dto) {
     PacienteModel model = new PacienteModel();
+    model.setCodigo(CodigoGenerator.generate(dto.getUnidade()));
     model.setNome(dto.getNome());
     model.setNomeCurto(dto.getNomeCurto());
     model.setSexo(dto.getSexo());
