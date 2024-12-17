@@ -12,7 +12,7 @@ import tlk.nexus_core.repositories.PacienteRepository;
 
 @Service
 public class PacienteService {
-  
+
   @Autowired
   private PacienteRepository repository;
 
@@ -25,8 +25,8 @@ public class PacienteService {
     return repository.findAll();
   }
 
-  // Validação de regras de negócio
   public PacienteModel validateBusinessLogic(PacienteModel paciente) {
+    String codigo = paciente.getCodigo();
     String nome = paciente.getNome();
     String nomeCurto = paciente.getNomeCurto();
     String sexo = paciente.getSexo();
@@ -41,48 +41,65 @@ public class PacienteService {
     String anotacoes = paciente.getAnotacoes();
     String observacoes = paciente.getObservacoes();
 
-    // Validação dos campos obrigatórios
-    if (nome == null || sexo == null || nome.isEmpty() || sexo.isEmpty() || dataNascimento == null) {
-      throw new IllegalArgumentException("Campos obrigatórios não foram preenchidos.");
+    /* Validação do preenchimento dos campos obrigatórios */
+
+    if (codigo.length() == 13) {
+      throw new IllegalArgumentException("Unidade não foi preenchida.");
+    } else if (nome == null || nome.isEmpty()) {
+      throw new IllegalArgumentException("Nome não foi preenchido.");
+    } else if (sexo == null || sexo.isEmpty()) {
+      throw new IllegalArgumentException("Sexo não foi preenchido.");
+    } else if (dataNascimento == null) {
+      throw new IllegalArgumentException("Data de nascimento não foi preenchida.");
     }
 
-    // Validação dos campos únicos
-    if (repository.findByNomeCurto(nomeCurto) != null && repository.findByNomeCurto(nomeCurto).size() > 0) {
+    /* Validação dos tamanhos dos campos */
+
+    if (codigo.length() != 16) {
+      throw new IllegalArgumentException("A unidade deve ter 3 caracteres.");
+    } else if (nome.length() > 64) {
+      throw new IllegalArgumentException("O nome deve ter no máximo 64 caracteres.");
+    } else if (nomeCurto != null && nomeCurto.length() > 32) {
+      throw new IllegalArgumentException("O nome curto deve ter no máximo 32 caracteres.");
+    } else if (sexo.length() > 16) {
+      throw new IllegalArgumentException("O sexo deve ter no máximo 16 caracteres.");
+    } else if (localNascimento != null && localNascimento.length() > 64) {
+      throw new IllegalArgumentException("O local de nascimento deve ter no máximo 64 caracteres.");
+    } else if (certidaoNascimento != null && certidaoNascimento.length() > 32) {
+      throw new IllegalArgumentException("O número da certidão de nascimento deve ter no máximo 32 caracteres.");
+    } else if (cpf != null && cpf.length() != 11) {
+      throw new IllegalArgumentException("O CPF deve ter 11 caracteres.");
+    } else if (convenio != null && convenio.length() > 32) {
+      throw new IllegalArgumentException("O convênio deve ter no máximo 32 caracteres.");
+    } else if (numeroConvenio != null && numeroConvenio.length() > 32) {
+      throw new IllegalArgumentException("O número do convênio deve ter no máximo 32 caracteres.");
+    } else if (cep != null && cep.length() != 8) {
+      throw new IllegalArgumentException("O CEP deve ter 8 caracteres.");
+    } else if (endereco != null && endereco.length() > 128) {
+      throw new IllegalArgumentException("O endereço deve ter no máximo 128 caracteres.");
+    } else if (anotacoes != null && anotacoes.length() > 256) {
+      throw new IllegalArgumentException("As anotações devem ter no máximo 256 caracteres.");
+    } else if (observacoes != null && observacoes.length() > 256) {
+      throw new IllegalArgumentException("As observações devem ter no máximo 256 caracteres.");
+    }
+
+    /* Validação da unicidade dos campos únicos */
+
+    if (repository.findByCodigo(codigo) != null && repository.findByCodigo(codigo).size() > 0) {
+      throw new IllegalArgumentException(
+          "Código gerado já cadastrado.\n\n" +
+          "A chance disso acontecer é praticamente a mesma que duas pessoas escolherem aleatoriamente a mesma estrela da Via Láctea.");
+    } else if (repository.findByNomeCurto(nomeCurto) != null && repository.findByNomeCurto(nomeCurto).size() > 0) {
       throw new IllegalArgumentException("Nome curto já cadastrado.");
-    } else if (repository.findByCertidaoNascimento(certidaoNascimento) != null && repository.findByCertidaoNascimento(certidaoNascimento).size() > 0) {
+    } else if (repository.findByCertidaoNascimento(certidaoNascimento) != null
+        && repository.findByCertidaoNascimento(certidaoNascimento).size() > 0) {
       throw new IllegalArgumentException("Certidão de nascimento já cadastrada.");
     } else if (repository.findByCpf(cpf) != null && repository.findByCpf(cpf).size() > 0) {
       throw new IllegalArgumentException("CPF já cadastrado.");
     }
 
-    // Validação dos tamanhos dos campos
-    if (nome.length() > 64) {
-      throw new IllegalArgumentException("O nome do paciente deve ter no máximo 64 caracteres.");
-    } else if (nomeCurto != null && nomeCurto.length() > 32) {
-      throw new IllegalArgumentException("O nome curto do paciente deve ter no máximo 32 caracteres.");
-    } else if (sexo.length() > 16) {
-      throw new IllegalArgumentException("O sexo do paciente deve ter no máximo 16 caracteres.");
-    } else if (localNascimento != null && localNascimento.length() > 64) {
-      throw new IllegalArgumentException("O local de nascimento do paciente deve ter no máximo 64 caracteres.");
-    } else if (certidaoNascimento != null && certidaoNascimento.length() > 32) {
-      throw new IllegalArgumentException("O número da certidão de nascimento do paciente deve ter no máximo 32 caracteres.");
-    } else if (cpf != null && cpf.length() != 11) {
-      throw new IllegalArgumentException("O CPF do paciente deve 11 caracteres.");
-    } else if (convenio != null && convenio.length() > 32) {
-      throw new IllegalArgumentException("O convênio do paciente deve ter no máximo 32 caracteres.");
-    } else if (numeroConvenio != null && numeroConvenio.length() > 32) {
-      throw new IllegalArgumentException("O número do convênio do paciente deve ter no máximo 32 caracteres.");
-    } else if (cep != null && cep.length() != 8) {
-      throw new IllegalArgumentException("O CEP do paciente deve ter 8 caracteres.");
-    } else if (endereco != null && endereco.length() > 128) {
-      throw new IllegalArgumentException("O endereço do paciente deve ter no máximo 128 caracteres.");
-    } else if (anotacoes != null && anotacoes.length() > 256) {
-      throw new IllegalArgumentException("As anotações do paciente devem ter no máximo 256 caracteres.");
-    } else if (observacoes != null && observacoes.length() > 256) {
-      throw new IllegalArgumentException("As observações do paciente devem ter no máximo 256 caracteres.");
-    }
+    /* Validação do campo 'sexo' */
 
-    // Validação do campo "sexo"
     if (sexo.toLowerCase().equals("masculino") || sexo.toLowerCase().equals("m")) {
       paciente.setSexo("Masculino");
     } else if (sexo.toLowerCase().equals("feminino") || sexo.toLowerCase().equals("f")) {
@@ -91,9 +108,10 @@ public class PacienteService {
       throw new IllegalArgumentException("Sexo inválido. Deve ser 'Masculino' ou 'Feminino'.");
     }
 
-    // Validação do campo "dataNascimento"
+    /* Validação do campo 'dataNascimento' */
+
     if (dataNascimento != null && dataNascimento.isAfter(LocalDate.now())) {
-      throw new IllegalArgumentException("A data de nascimento do paciente deve ser anterior ou igual à data atual.");
+      throw new IllegalArgumentException("A data de nascimento deve ser anterior ou igual à data atual.");
     }
 
     return paciente;
