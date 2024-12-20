@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -25,6 +26,8 @@ import tlk.nexus_core.models.embeddables.EnderecoEmbeddable;
 
 @Data
 @Entity
+@JsonPropertyOrder({ "id", "ativo", "data_hora_criacao", "codigo", "nome", "nome_curto", "sexo", "data_nascimento",
+    "certidao_nascimento", "cpf", "convenio", "numero_convenio", "enderecos", "anotacoes", "observacoes" })
 @Table(name = "pacientes")
 public class PacienteModel {
 
@@ -95,20 +98,12 @@ public class PacienteModel {
 
   @ManyToMany
   @JsonIgnore
-  @JoinTable(
-    name = "vinculos",
-    joinColumns = @JoinColumn(name = "paciente_id"),
-    inverseJoinColumns = @JoinColumn(name = "representante_id")
-  )
+  @JoinTable(name = "vinculos", joinColumns = @JoinColumn(name = "paciente_id"), inverseJoinColumns = @JoinColumn(name = "representante_id"))
   private List<RepresentanteModel> representantesVinculos;
 
   @ManyToMany
   @JsonIgnore
-  @JoinTable(
-    name = "contratos",
-    joinColumns = @JoinColumn(name = "paciente_id"),
-    inverseJoinColumns = @JoinColumn(name = "representante_id")
-  )
+  @JoinTable(name = "contratos", joinColumns = @JoinColumn(name = "paciente_id"), inverseJoinColumns = @JoinColumn(name = "representante_id"))
   private List<RepresentanteModel> representantesContratos;
 
 }

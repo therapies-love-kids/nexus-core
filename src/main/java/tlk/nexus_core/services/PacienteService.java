@@ -1,5 +1,6 @@
 package tlk.nexus_core.services;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
 import tlk.nexus_core.models.PacienteModel;
+import tlk.nexus_core.models.embeddables.EnderecoEmbeddable;
 import tlk.nexus_core.repositories.PacienteRepository;
 
 @Service
@@ -84,41 +86,16 @@ public class PacienteService {
   }
 
   public void updateDataDB(@Valid PacienteModel paciente, @Valid PacienteModel pacienteUpdate) {
-    if (pacienteUpdate.getAtivo() != null) {
-      paciente.setAtivo(pacienteUpdate.getAtivo());
-    }
-    if (pacienteUpdate.getNome() != null) {
-      paciente.setNome(pacienteUpdate.getNome());
-    }
-    if (pacienteUpdate.getNomeCurto() != null) {
-      paciente.setNomeCurto(pacienteUpdate.getNomeCurto());
-    }
-    if (pacienteUpdate.getSexo() != null) {
-      paciente.setSexo(pacienteUpdate.getSexo());
-    }
-    if (pacienteUpdate.getDataNascimento() != null) {
-      paciente.setDataNascimento(pacienteUpdate.getDataNascimento());
-    }
-    if (pacienteUpdate.getCertidaoNascimento() != null) {
-      paciente.setCertidaoNascimento(pacienteUpdate.getCertidaoNascimento());
-    }
-    if (pacienteUpdate.getCpf() != null) {
-      paciente.setCpf(pacienteUpdate.getCpf());
-    }
-    if (pacienteUpdate.getConvenio() != null) {
-      paciente.setConvenio(pacienteUpdate.getConvenio());
-    }
-    if (pacienteUpdate.getNumeroConvenio() != null) {
-      paciente.setNumeroConvenio(pacienteUpdate.getNumeroConvenio());
-    }
-    if (pacienteUpdate.getEndereco() != null) {
-      paciente.setEndereco(pacienteUpdate.getEndereco());
-    }
-    if (pacienteUpdate.getAnotacoes() != null) {
-      paciente.setAnotacoes(pacienteUpdate.getAnotacoes());
-    }
-    if (pacienteUpdate.getObservacoes() != null) {
-      paciente.setObservacoes(pacienteUpdate.getObservacoes());
+    for (Field field : PacienteModel.class.getDeclaredFields()) {
+      field.setAccessible(true);
+      try {
+        Object value = field.get(pacienteUpdate);
+        if (value != null) {
+          field.set(paciente, value);
+        }
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -132,6 +109,7 @@ public class PacienteService {
     String cpf = paciente.getCpf();
     String convenio = paciente.getConvenio();
     String numeroConvenio = paciente.getNumeroConvenio();
+    EnderecoEmbeddable endereco = paciente.getEndereco();
     String anotacoes = paciente.getAnotacoes();
     String observacoes = paciente.getObservacoes();
 
@@ -165,6 +143,20 @@ public class PacienteService {
       throw new IllegalArgumentException("O convênio deve ter no máximo 32 caracteres");
     } else if (numeroConvenio != null && numeroConvenio.length() > 32) {
       throw new IllegalArgumentException("O número do convênio deve ter no máximo 32 caracteres");
+    } else if (endereco.getCep() != null && endereco.getCep().length() != 8) {
+      throw new IllegalArgumentException("O CEP deve ter 8 caracteres");
+    } else if (endereco.getLogradouro() != null && endereco.getLogradouro().length() > 64) {
+      throw new IllegalArgumentException("O logradouro deve ter no máximo 64 caracteres");
+    } else if (endereco.getComplemento() != null && endereco.getComplemento().length() > 32) {
+      throw new IllegalArgumentException("O complemento deve ter no máximo 32 caracteres");
+    } else if (endereco.getBairro() != null && endereco.getBairro().length() > 32) {
+      throw new IllegalArgumentException("O bairro deve ter no máximo 32 caracteres");
+    } else if (endereco.getCidade() != null && endereco.getCidade().length() > 32) {
+      throw new IllegalArgumentException("A cidade deve ter no máximo 32 caracteres");
+    } else if (endereco.getUf() != null && endereco.getUf().length() != 2) {
+      throw new IllegalArgumentException("A UF deve ter 2 caracteres");
+    } else if (endereco.getNumero() != null && endereco.getNumero().length() > 16) {
+      throw new IllegalArgumentException("O número deve ter no máximo 16 caracteres");
     } else if (anotacoes != null && anotacoes.length() > 256) {
       throw new IllegalArgumentException("As anotações devem ter no máximo 256 caracteres");
     } else if (observacoes != null && observacoes.length() > 256) {
@@ -213,6 +205,7 @@ public class PacienteService {
     String cpf = pacienteUpdate.getCpf();
     String convenio = pacienteUpdate.getConvenio();
     String numeroConvenio = pacienteUpdate.getNumeroConvenio();
+    EnderecoEmbeddable endereco = paciente.getEndereco();
     String anotacoes = pacienteUpdate.getAnotacoes();
     String observacoes = pacienteUpdate.getObservacoes();
 
@@ -242,6 +235,20 @@ public class PacienteService {
       throw new IllegalArgumentException("O convênio deve ter no máximo 32 caracteres");
     } else if (numeroConvenio != null && numeroConvenio.length() > 32) {
       throw new IllegalArgumentException("O número do convênio deve ter no máximo 32 caracteres");
+    } else if (endereco.getCep() != null && endereco.getCep().length() != 8) {
+      throw new IllegalArgumentException("O CEP deve ter 8 caracteres");
+    } else if (endereco.getLogradouro() != null && endereco.getLogradouro().length() > 64) {
+      throw new IllegalArgumentException("O logradouro deve ter no máximo 64 caracteres");
+    } else if (endereco.getComplemento() != null && endereco.getComplemento().length() > 32) {
+      throw new IllegalArgumentException("O complemento deve ter no máximo 32 caracteres");
+    } else if (endereco.getBairro() != null && endereco.getBairro().length() > 32) {
+      throw new IllegalArgumentException("O bairro deve ter no máximo 32 caracteres");
+    } else if (endereco.getCidade() != null && endereco.getCidade().length() > 32) {
+      throw new IllegalArgumentException("A cidade deve ter no máximo 32 caracteres");
+    } else if (endereco.getUf() != null && endereco.getUf().length() != 2) {
+      throw new IllegalArgumentException("A UF deve ter 2 caracteres");
+    } else if (endereco.getNumero() != null && endereco.getNumero().length() > 16) {
+      throw new IllegalArgumentException("O número deve ter no máximo 16 caracteres");
     } else if (anotacoes != null && anotacoes.length() > 256) {
       throw new IllegalArgumentException("As anotações devem ter no máximo 256 caracteres");
     } else if (observacoes != null && observacoes.length() > 256) {

@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -24,6 +25,7 @@ import tlk.nexus_core.models.embeddables.EnderecoEmbeddable;
 
 @Data
 @Entity
+@JsonPropertyOrder({ "id", "ativo", "data_hora_criacao", "nome", "estado_civil", "profissao", "cpf", "rg", "endereco", "contatos", "pacientes_vinculos", "pacientes_contratos" })
 @Table(name = "representantes")
 public class RepresentanteModel {
 
