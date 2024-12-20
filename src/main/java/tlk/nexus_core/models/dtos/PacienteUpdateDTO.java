@@ -3,11 +3,15 @@ package tlk.nexus_core.models.dtos;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Embedded;
 import lombok.Data;
+import tlk.nexus_core.models.embeddables.EnderecoEmbeddable;
 
 @Data
+@JsonPropertyOrder({"ativo", "nome", "nome_curto", "sexo", "data_nascimento", "certidao_nascimento", "cpf", "convenio", "numero_convenio", "endereco"})
 public class PacienteUpdateDTO {
 
   @Schema(description = "Indica se o paciente está ativo", example = "true")
@@ -46,13 +50,8 @@ public class PacienteUpdateDTO {
   @JsonProperty("numero_convenio")
   private String numeroConvenio;
 
-  @Schema(description = "CEP do paciente", example = "50000000")
-  @JsonProperty("cep")
-  private String cep;
-
-  @Schema(description = "Endereço do paciente", example = "Rua A, 123 - Bairro X")
-  @JsonProperty("endereco")
-  private String endereco;
+  @Embedded
+  private EnderecoEmbeddable endereco;
 
   @Schema(description = "Informações extras relevantes sobre o paciente vindas de fora", example = "Doenças crônicas")
   @JsonProperty("anotacoes")

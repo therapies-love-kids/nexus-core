@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import tlk.nexus_core.models.embeddables.EnderecoEmbeddable;
 
 @Data
 @Entity
@@ -80,13 +82,8 @@ public class PacienteModel {
   @Column(name = "numero_convenio", length = 32)
   private String numeroConvenio;
 
-  @JsonProperty("cep")
-  @Column(name = "cep", length = 8)
-  private String cep;
-
-  @JsonProperty("endereco")
-  @Column(name = "endereco", length = 128)
-  private String endereco;
+  @Embedded
+  private EnderecoEmbeddable endereco;
 
   @JsonProperty("anotacoes")
   @Column(name = "anotacoes", columnDefinition = "TEXT")

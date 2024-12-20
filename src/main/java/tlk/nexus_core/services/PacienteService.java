@@ -111,9 +111,6 @@ public class PacienteService {
     if (pacienteUpdate.getNumeroConvenio() != null) {
       paciente.setNumeroConvenio(pacienteUpdate.getNumeroConvenio());
     }
-    if (pacienteUpdate.getCep() != null) {
-      paciente.setCep(pacienteUpdate.getCep());
-    }
     if (pacienteUpdate.getEndereco() != null) {
       paciente.setEndereco(pacienteUpdate.getEndereco());
     }
@@ -135,8 +132,6 @@ public class PacienteService {
     String cpf = paciente.getCpf();
     String convenio = paciente.getConvenio();
     String numeroConvenio = paciente.getNumeroConvenio();
-    String cep = paciente.getCep();
-    String endereco = paciente.getEndereco();
     String anotacoes = paciente.getAnotacoes();
     String observacoes = paciente.getObservacoes();
 
@@ -170,10 +165,6 @@ public class PacienteService {
       throw new IllegalArgumentException("O convênio deve ter no máximo 32 caracteres");
     } else if (numeroConvenio != null && numeroConvenio.length() > 32) {
       throw new IllegalArgumentException("O número do convênio deve ter no máximo 32 caracteres");
-    } else if (cep != null && !cep.isEmpty() && cep.length() != 8) {
-      throw new IllegalArgumentException("O CEP deve ter 8 caracteres");
-    } else if (endereco != null && endereco.length() > 128) {
-      throw new IllegalArgumentException("O endereço deve ter no máximo 128 caracteres");
     } else if (anotacoes != null && anotacoes.length() > 256) {
       throw new IllegalArgumentException("As anotações devem ter no máximo 256 caracteres");
     } else if (observacoes != null && observacoes.length() > 256) {
@@ -222,8 +213,6 @@ public class PacienteService {
     String cpf = pacienteUpdate.getCpf();
     String convenio = pacienteUpdate.getConvenio();
     String numeroConvenio = pacienteUpdate.getNumeroConvenio();
-    String cep = pacienteUpdate.getCep();
-    String endereco = pacienteUpdate.getEndereco();
     String anotacoes = pacienteUpdate.getAnotacoes();
     String observacoes = pacienteUpdate.getObservacoes();
 
@@ -253,10 +242,6 @@ public class PacienteService {
       throw new IllegalArgumentException("O convênio deve ter no máximo 32 caracteres");
     } else if (numeroConvenio != null && numeroConvenio.length() > 32) {
       throw new IllegalArgumentException("O número do convênio deve ter no máximo 32 caracteres");
-    } else if (cep != null && !cep.isEmpty() && cep.length() != 8) {
-      throw new IllegalArgumentException("O CEP deve ter 8 caracteres");
-    } else if (endereco != null && endereco.length() > 128) {
-      throw new IllegalArgumentException("O endereço deve ter no máximo 128 caracteres");
     } else if (anotacoes != null && anotacoes.length() > 256) {
       throw new IllegalArgumentException("As anotações devem ter no máximo 256 caracteres");
     } else if (observacoes != null && observacoes.length() > 256) {
