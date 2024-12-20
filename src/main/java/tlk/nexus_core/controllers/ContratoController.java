@@ -1,7 +1,5 @@
 package tlk.nexus_core.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,8 @@ import tlk.nexus_core.mappers.ContratoMapper;
 import tlk.nexus_core.models.ContratoModel;
 import tlk.nexus_core.models.dtos.ContratoCreateDTO;
 import tlk.nexus_core.services.ContratoService;
+import tlk.nexus_core.utils.ErrorResponse;
+import tlk.nexus_core.utils.SuccessResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -37,9 +37,11 @@ public class ContratoController {
   public ResponseEntity<Object> create(@Valid @RequestBody ContratoCreateDTO dto) {
     try {
       ContratoModel model = service.create(mapper.toModel(dto));
-      return ResponseEntity.status(HttpStatus.CREATED).body(model);
+      return ResponseEntity.status(HttpStatus.CREATED)
+          .body(new SuccessResponse(model));
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
@@ -47,13 +49,11 @@ public class ContratoController {
   @Operation(description = "Endpoint para buscar todos os contratos")
   public ResponseEntity<Object> getAll() {
     try {
-      List<ContratoModel> contratos = service.getAll();
-      if (contratos.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Nenhum contrato encontrado");
-      }
-      return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new SuccessResponse(service.getAll()));
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
@@ -63,22 +63,27 @@ public class ContratoController {
     try {
       ContratoModel contrato = service.getById(id);
       if (contrato == null) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Contrato não encontrado");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(new ErrorResponse("Contrato não encontrado"));
       }
-      return ResponseEntity.status(HttpStatus.OK).body(contrato);
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new SuccessResponse(contrato));
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
-  
+
   @PutMapping("/{id}")
   @Operation(description = "Endpoint para atualizar um contrato")
   public ResponseEntity<Object> update(@PathVariable Long id, @Valid @RequestBody ContratoCreateDTO dto) {
     try {
       ContratoModel contrato = service.update(id, mapper.toModel(dto));
-      return ResponseEntity.status(HttpStatus.OK).body(contrato);
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new SuccessResponse(contrato));
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
@@ -87,9 +92,11 @@ public class ContratoController {
   public ResponseEntity<Object> activate(@PathVariable Long id) {
     try {
       ContratoModel contrato = service.activate(id);
-      return ResponseEntity.status(HttpStatus.OK).body(contrato);
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new SuccessResponse(contrato));
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
@@ -98,10 +105,13 @@ public class ContratoController {
   public ResponseEntity<Object> inactivate(@PathVariable Long id) {
     try {
       ContratoModel contrato = service.inactivate(id);
-      return ResponseEntity.status(HttpStatus.OK).body(contrato);
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new SuccessResponse(contrato));
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
 }
+
