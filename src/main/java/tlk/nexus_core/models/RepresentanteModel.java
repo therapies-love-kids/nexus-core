@@ -47,6 +47,10 @@ public class RepresentanteModel {
   @Column(name = "estado_civil", nullable = false, length = 16)
   private String estadoCivil;
 
+  @JsonProperty("profissao")
+  @Column(name = "profissao", nullable = false, length = 32)
+  private String profissao;
+
   @JsonProperty("cpf")
   @Column(name = "cpf", unique = true, nullable = false, length = 16)
   private String cpf;
