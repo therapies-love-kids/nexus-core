@@ -7,8 +7,10 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,9 +20,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import tlk.nexus_core.models.embeddables.ContatosEmbeddable;
+import tlk.nexus_core.models.embeddables.EnderecoEmbeddable;
 
 @Data
 @Entity
+@JsonPropertyOrder({ "id", "ativo", "data_hora_criacao", "nome", "estado_civil", "profissao", "cpf", "rg", "endereco", "contatos", "pacientes_vinculos", "pacientes_contratos" })
 @Table(name = "representantes")
 public class RepresentanteModel {
 
@@ -59,9 +64,11 @@ public class RepresentanteModel {
   @Column(name = "rg", length = 32)
   private String rg;
 
-  @JsonProperty("contatos")
-  @Column(name = "contatos", length = 128)
-  private String contatos;
+  @Embedded
+  private EnderecoEmbeddable endereco;
+
+  @Embedded
+  private ContatosEmbeddable contatos;
 
   @ManyToMany
   @JsonIgnore

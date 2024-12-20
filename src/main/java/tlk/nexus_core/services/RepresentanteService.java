@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
 import tlk.nexus_core.models.RepresentanteModel;
+import tlk.nexus_core.models.embeddables.ContatosEmbeddable;
+import tlk.nexus_core.models.embeddables.EnderecoEmbeddable;
 import tlk.nexus_core.repositories.RepresentanteRepository;
 
 @Service
@@ -76,9 +78,6 @@ public class RepresentanteService {
     if (representanteUpdate.getRg() != null) {
       representante.setRg(representanteUpdate.getRg());
     }
-    if (representanteUpdate.getContatos() != null) {
-      representante.setContatos(representanteUpdate.getContatos());
-    }
   }
 
   // Validação de regras de negócio
@@ -87,7 +86,8 @@ public class RepresentanteService {
     String estadoCivil = representante.getEstadoCivil();
     String cpf = representante.getCpf();
     String rg = representante.getRg();
-    String contatos = representante.getContatos();
+    EnderecoEmbeddable endereco = representante.getEndereco();
+    ContatosEmbeddable contatos = representante.getContatos();
 
     // Validação dos campos obrigatórios
     if (nome == null || estadoCivil == null || nome.isEmpty() || estadoCivil.isEmpty() || cpf == null) {
@@ -108,8 +108,26 @@ public class RepresentanteService {
       throw new IllegalArgumentException("O CPF do representante deve ter 11 caracteres.");
     } else if (rg != null && rg.length() > 32) {
       throw new IllegalArgumentException("O RG do representante deve ter no máximo 32 caracteres.");
-    } else if (contatos != null && contatos.length() > 128) {
-      throw new IllegalArgumentException("Os contatos do representante devem ter no máximo 128 caracteres.");
+    } else if (endereco.getCep() != null && endereco.getCep().length() != 8) {
+      throw new IllegalArgumentException("O CEP deve ter 8 caracteres");
+    } else if (endereco.getLogradouro() != null && endereco.getLogradouro().length() > 64) {
+      throw new IllegalArgumentException("O logradouro deve ter no máximo 64 caracteres");
+    } else if (endereco.getComplemento() != null && endereco.getComplemento().length() > 32) {
+      throw new IllegalArgumentException("O complemento deve ter no máximo 32 caracteres");
+    } else if (endereco.getBairro() != null && endereco.getBairro().length() > 32) {
+      throw new IllegalArgumentException("O bairro deve ter no máximo 32 caracteres");
+    } else if (endereco.getCidade() != null && endereco.getCidade().length() > 32) {
+      throw new IllegalArgumentException("A cidade deve ter no máximo 32 caracteres");
+    } else if (endereco.getUf() != null && endereco.getUf().length() != 2) {
+      throw new IllegalArgumentException("A UF deve ter 2 caracteres");
+    } else if (endereco.getNumero() != null && endereco.getNumero().length() > 16) {
+      throw new IllegalArgumentException("O número deve ter no máximo 16 caracteres");
+    } else if (contatos.getTelefone() != null && contatos.getTelefone().length() > 16) {
+      throw new IllegalArgumentException("O telefone deve ter no máximo 16 caracteres");
+    } else if (contatos.getCelular() != null && contatos.getCelular().length() > 16) {
+      throw new IllegalArgumentException("O celular deve ter no máximo 16 caracteres");
+    } else if (contatos.getEmail() != null && contatos.getEmail().length() > 64) {
+      throw new IllegalArgumentException("O email deve ter no máximo 64 caracteres");
     }
 
     // Validação do estado civil
@@ -133,7 +151,8 @@ public class RepresentanteService {
     String estadoCivil = representanteUpdate.getEstadoCivil();
     String cpf = representanteUpdate.getCpf();
     String rg = representanteUpdate.getRg();
-    String contatos = representanteUpdate.getContatos();
+    EnderecoEmbeddable endereco = representanteUpdate.getEndereco();
+    ContatosEmbeddable contatos = representanteUpdate.getContatos();
 
     // Validação dos campos obrigatórios
     if (nome == null || estadoCivil == null || nome.isEmpty() || estadoCivil.isEmpty() || cpf == null) {
@@ -154,8 +173,26 @@ public class RepresentanteService {
       throw new IllegalArgumentException("O CPF do representante deve ter 11 caracteres.");
     } else if (rg != null && rg.length() > 32) {
       throw new IllegalArgumentException("O RG do representante deve ter no máximo 32 caracteres.");
-    } else if (contatos != null && contatos.length() > 128) {
-      throw new IllegalArgumentException("Os contatos do representante devem ter no máximo 128 caracteres.");
+    } else if (endereco.getCep() != null && endereco.getCep().length() != 8) {
+      throw new IllegalArgumentException("O CEP deve ter 8 caracteres");
+    } else if (endereco.getLogradouro() != null && endereco.getLogradouro().length() > 64) {
+      throw new IllegalArgumentException("O logradouro deve ter no máximo 64 caracteres");
+    } else if (endereco.getComplemento() != null && endereco.getComplemento().length() > 32) {
+      throw new IllegalArgumentException("O complemento deve ter no máximo 32 caracteres");
+    } else if (endereco.getBairro() != null && endereco.getBairro().length() > 32) {
+      throw new IllegalArgumentException("O bairro deve ter no máximo 32 caracteres");
+    } else if (endereco.getCidade() != null && endereco.getCidade().length() > 32) {
+      throw new IllegalArgumentException("A cidade deve ter no máximo 32 caracteres");
+    } else if (endereco.getUf() != null && endereco.getUf().length() != 2) {
+      throw new IllegalArgumentException("A UF deve ter 2 caracteres");
+    } else if (endereco.getNumero() != null && endereco.getNumero().length() > 16) {
+      throw new IllegalArgumentException("O número deve ter no máximo 16 caracteres");
+    } else if (contatos.getTelefone() != null && contatos.getTelefone().length() > 16) {
+      throw new IllegalArgumentException("O telefone deve ter no máximo 16 caracteres");
+    } else if (contatos.getCelular() != null && contatos.getCelular().length() > 16) {
+      throw new IllegalArgumentException("O celular deve ter no máximo 16 caracteres");
+    } else if (contatos.getEmail() != null && contatos.getEmail().length() > 64) {
+      throw new IllegalArgumentException("O email deve ter no máximo 64 caracteres");
     }
 
     // Validação do estado civil

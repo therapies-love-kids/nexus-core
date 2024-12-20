@@ -23,7 +23,6 @@ public class PacienteMapper {
     model.setCpf(dto.getCpf());
     model.setConvenio(dto.getConvenio());
     model.setNumeroConvenio(dto.getNumeroConvenio());
-    model.setCep(dto.getCep());
     model.setEndereco(dto.getEndereco());
     model.setAnotacoes(dto.getAnotacoes());
     model.setObservacoes(dto.getObservacoes());
@@ -42,7 +41,6 @@ public class PacienteMapper {
     model.setCpf(dto.getCpf());
     model.setConvenio(dto.getConvenio());
     model.setNumeroConvenio(dto.getNumeroConvenio());
-    model.setCep(dto.getCep());
     model.setEndereco(dto.getEndereco());
     model.setAnotacoes(dto.getAnotacoes());
     model.setObservacoes(dto.getObservacoes());
