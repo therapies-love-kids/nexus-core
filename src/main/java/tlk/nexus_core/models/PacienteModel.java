@@ -65,7 +65,7 @@ public class PacienteModel {
   private LocalDate dataNascimento;
 
   @JsonProperty("certidao_nascimento")
-  @Column(name = "certidao_nascimento", unique = true, length = 32)
+  @Column(name = "certidao_nascimento", length = 32)
   private String certidaoNascimento;
 
   @JsonProperty("cpf")
