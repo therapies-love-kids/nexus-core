@@ -20,6 +20,10 @@ public class RepresentanteUpdateDTO {
   @JsonProperty("estado_civil")
   private String estadoCivil;
 
+  @Schema(description = "Profissão do representante", example = "Engenheiro")
+  @JsonProperty("profissao")
+  private String profissao;
+
   @Schema(description = "CPF do representante", example = "12345678909")
   @JsonProperty("cpf")
   private String cpf;
