@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Embeddable
-public class ContatoEmbeddable {
+public class ContatosEmbeddable {
   
   @Schema(description = "Telefone", example = "1234-5678")
   @Column(length = 16)
