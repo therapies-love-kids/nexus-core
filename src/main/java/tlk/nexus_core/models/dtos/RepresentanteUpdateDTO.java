@@ -1,11 +1,16 @@
 package tlk.nexus_core.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Embedded;
 import lombok.Data;
+import tlk.nexus_core.models.embeddables.ContatosEmbeddable;
+import tlk.nexus_core.models.embeddables.EnderecoEmbeddable;
 
 @Data
+@JsonPropertyOrder({"ativo", "nome", "estado_civil", "profissao", "cpf", "rg", "endereco", "contatos"})
 public class RepresentanteUpdateDTO {
 
   @Schema(description = "Indica se o paciente está ativo", example = "true")
@@ -32,8 +37,10 @@ public class RepresentanteUpdateDTO {
   @JsonProperty("rg")
   private String rg;
 
-  @Schema(description = "Contatos do representante", example = "carlos@example.com, (31) 98765-4321")
-  @JsonProperty("contatos")
-  private String contatos;
+  @Embedded
+  private EnderecoEmbeddable endereco;
+
+  @Embedded
+  private ContatosEmbeddable contatos;
 
 }

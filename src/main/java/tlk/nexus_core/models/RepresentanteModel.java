@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +19,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import tlk.nexus_core.models.embeddables.ContatosEmbeddable;
+import tlk.nexus_core.models.embeddables.EnderecoEmbeddable;
 
 @Data
 @Entity
@@ -59,9 +62,11 @@ public class RepresentanteModel {
   @Column(name = "rg", length = 32)
   private String rg;
 
-  @JsonProperty("contatos")
-  @Column(name = "contatos", length = 128)
-  private String contatos;
+  @Embedded
+  private EnderecoEmbeddable endereco;
+
+  @Embedded
+  private ContatosEmbeddable contatos;
 
   @ManyToMany
   @JsonIgnore

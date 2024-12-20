@@ -17,6 +17,7 @@ public class RepresentanteMapper {
     model.setEstadoCivil(dto.getEstadoCivil());
     model.setCpf(dto.getCpf());
     model.setRg(dto.getRg());
+    model.setEndereco(dto.getEndereco());
     model.setContatos(dto.getContatos());
     return model;
   }
@@ -29,6 +30,7 @@ public class RepresentanteMapper {
     model.setEstadoCivil(dto.getEstadoCivil());
     model.setCpf(dto.getCpf());
     model.setRg(dto.getRg());
+    model.setEndereco(dto.getEndereco());
     model.setContatos(dto.getContatos());
     return model;
   }

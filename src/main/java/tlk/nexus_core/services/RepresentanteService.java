@@ -76,9 +76,6 @@ public class RepresentanteService {
     if (representanteUpdate.getRg() != null) {
       representante.setRg(representanteUpdate.getRg());
     }
-    if (representanteUpdate.getContatos() != null) {
-      representante.setContatos(representanteUpdate.getContatos());
-    }
   }
 
   // Validação de regras de negócio
@@ -87,7 +84,6 @@ public class RepresentanteService {
     String estadoCivil = representante.getEstadoCivil();
     String cpf = representante.getCpf();
     String rg = representante.getRg();
-    String contatos = representante.getContatos();
 
     // Validação dos campos obrigatórios
     if (nome == null || estadoCivil == null || nome.isEmpty() || estadoCivil.isEmpty() || cpf == null) {
@@ -108,8 +104,6 @@ public class RepresentanteService {
       throw new IllegalArgumentException("O CPF do representante deve ter 11 caracteres.");
     } else if (rg != null && rg.length() > 32) {
       throw new IllegalArgumentException("O RG do representante deve ter no máximo 32 caracteres.");
-    } else if (contatos != null && contatos.length() > 128) {
-      throw new IllegalArgumentException("Os contatos do representante devem ter no máximo 128 caracteres.");
     }
 
     // Validação do estado civil
@@ -133,7 +127,6 @@ public class RepresentanteService {
     String estadoCivil = representanteUpdate.getEstadoCivil();
     String cpf = representanteUpdate.getCpf();
     String rg = representanteUpdate.getRg();
-    String contatos = representanteUpdate.getContatos();
 
     // Validação dos campos obrigatórios
     if (nome == null || estadoCivil == null || nome.isEmpty() || estadoCivil.isEmpty() || cpf == null) {
@@ -154,8 +147,6 @@ public class RepresentanteService {
       throw new IllegalArgumentException("O CPF do representante deve ter 11 caracteres.");
     } else if (rg != null && rg.length() > 32) {
       throw new IllegalArgumentException("O RG do representante deve ter no máximo 32 caracteres.");
-    } else if (contatos != null && contatos.length() > 128) {
-      throw new IllegalArgumentException("Os contatos do representante devem ter no máximo 128 caracteres.");
     }
 
     // Validação do estado civil
