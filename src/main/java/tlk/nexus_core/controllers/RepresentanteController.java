@@ -1,7 +1,5 @@
 package tlk.nexus_core.controllers;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +19,8 @@ import tlk.nexus_core.models.RepresentanteModel;
 import tlk.nexus_core.models.dtos.RepresentanteCreateDTO;
 import tlk.nexus_core.models.dtos.RepresentanteUpdateDTO;
 import tlk.nexus_core.services.RepresentanteService;
+import tlk.nexus_core.utils.ErrorResponse;
+import tlk.nexus_core.utils.SuccessResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -39,10 +39,10 @@ public class RepresentanteController {
     try {
       RepresentanteModel model = service.create(mapper.toModel(dto));
       return ResponseEntity.status(HttpStatus.CREATED)
-          .body(Map.of("status", "success", "data", model));
+          .body(new SuccessResponse(model));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(Map.of("status", "error", "message", e.getMessage()));
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
@@ -51,10 +51,10 @@ public class RepresentanteController {
   public ResponseEntity<Object> getAll() {
     try {
       return ResponseEntity.status(HttpStatus.OK)
-          .body(Map.of("status", "success", "data", service.getAll()));
+          .body(new SuccessResponse(service.getAll()));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(Map.of("status", "error", "message", e.getMessage()));
+      .body(new ErrorResponse(e.getMessage()));
     }
   }
 
@@ -65,13 +65,13 @@ public class RepresentanteController {
       RepresentanteModel representante = service.getById(id);
       if (representante == null) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body(Map.of("status", "error", "message", "Representante não encontrado"));
+            .body(new ErrorResponse("Representante nao encontrado"));
       }
       return ResponseEntity.status(HttpStatus.OK)
-          .body(Map.of("status", "success", "data", representante));
+          .body(new SuccessResponse(representante));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(Map.of("status", "error", "message", e.getMessage()));
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
@@ -82,13 +82,13 @@ public class RepresentanteController {
       RepresentanteModel representante = service.getByCpf(cpf);
       if (representante == null) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body(Map.of("status", "error", "message", "Representante não encontrado"));
+            .body(new ErrorResponse("Representante nao encontrado"));
       }
       return ResponseEntity.status(HttpStatus.OK)
-          .body(Map.of("status", "success", "data", representante));
+          .body(new SuccessResponse(representante));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(Map.of("status", "error", "message", e.getMessage()));
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
@@ -98,10 +98,10 @@ public class RepresentanteController {
     try {
       RepresentanteModel representante = service.update(id, mapper.toModel(dto));
       return ResponseEntity.status(HttpStatus.OK)
-          .body(Map.of("status", "success", "data", representante));
+          .body(new SuccessResponse(representante));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(Map.of("status", "error", "message", e.getMessage()));
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
@@ -111,10 +111,10 @@ public class RepresentanteController {
     try {
       RepresentanteModel representante = service.activate(id);
       return ResponseEntity.status(HttpStatus.OK)
-          .body(Map.of("status", "success", "data", representante));
+          .body(new SuccessResponse(representante));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(Map.of("status", "error", "message", e.getMessage()));
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
@@ -124,10 +124,10 @@ public class RepresentanteController {
     try {
       RepresentanteModel representante = service.inactivate(id);
       return ResponseEntity.status(HttpStatus.OK)
-          .body(Map.of("status", "success", "data", representante));
+          .body(new SuccessResponse(representante));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(Map.of("status", "error", "message", e.getMessage()));
+          .body(new ErrorResponse(e.getMessage()));
     }
   }
 
