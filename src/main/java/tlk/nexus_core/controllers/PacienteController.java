@@ -26,7 +26,7 @@ import tlk.nexus_core.utils.SuccessResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/pacientes")
+@RequestMapping(path = "${api.version}/pacientes")
 public class PacienteController {
 
   @Autowired

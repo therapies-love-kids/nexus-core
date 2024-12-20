@@ -26,7 +26,7 @@ import tlk.nexus_core.utils.SuccessResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/vinculos")
+@RequestMapping(path = "${api.version}/vinculos")
 public class VinculoController {
 
   @Autowired

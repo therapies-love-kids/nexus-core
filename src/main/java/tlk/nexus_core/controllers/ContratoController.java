@@ -23,7 +23,7 @@ import tlk.nexus_core.utils.SuccessResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/contratos")
+@RequestMapping(path = "${api.version}/contratos")
 public class ContratoController {
 
   @Autowired
