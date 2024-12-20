@@ -19,7 +19,6 @@ public class PacienteMapper {
     model.setNomeCurto(dto.getNomeCurto());
     model.setSexo(dto.getSexo());
     model.setDataNascimento(dto.getDataNascimento());
-    model.setLocalNascimento(dto.getLocalNascimento());
     model.setCertidaoNascimento(dto.getCertidaoNascimento());
     model.setCpf(dto.getCpf());
     model.setConvenio(dto.getConvenio());
@@ -39,7 +38,6 @@ public class PacienteMapper {
     model.setNomeCurto(dto.getNomeCurto());
     model.setSexo(dto.getSexo());
     model.setDataNascimento(dto.getDataNascimento());
-    model.setLocalNascimento(dto.getLocalNascimento());
     model.setCertidaoNascimento(dto.getCertidaoNascimento());
     model.setCpf(dto.getCpf());
     model.setConvenio(dto.getConvenio());

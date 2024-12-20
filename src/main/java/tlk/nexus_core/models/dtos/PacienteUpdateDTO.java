@@ -30,10 +30,6 @@ public class PacienteUpdateDTO {
   @JsonProperty("data_nascimento")
   private LocalDate dataNascimento;
 
-  @Schema(description = "Local de nascimento do paciente", example = "Anápolis - GO")
-  @JsonProperty("local_nascimento")
-  private String localNascimento;
-
   @Schema(description = "Número da certidão de nascimento", example = "1234567890")
   @JsonProperty("certidao_nascimento")
   private String certidaoNascimento;

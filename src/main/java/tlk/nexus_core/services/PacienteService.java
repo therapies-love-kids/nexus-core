@@ -99,9 +99,6 @@ public class PacienteService {
     if (pacienteUpdate.getDataNascimento() != null) {
       paciente.setDataNascimento(pacienteUpdate.getDataNascimento());
     }
-    if (pacienteUpdate.getLocalNascimento() != null) {
-      paciente.setLocalNascimento(pacienteUpdate.getLocalNascimento());
-    }
     if (pacienteUpdate.getCertidaoNascimento() != null) {
       paciente.setCertidaoNascimento(pacienteUpdate.getCertidaoNascimento());
     }
@@ -134,7 +131,6 @@ public class PacienteService {
     String nomeCurto = paciente.getNomeCurto();
     String sexo = paciente.getSexo();
     LocalDate dataNascimento = paciente.getDataNascimento();
-    String localNascimento = paciente.getLocalNascimento();
     String certidaoNascimento = paciente.getCertidaoNascimento();
     String cpf = paciente.getCpf();
     String convenio = paciente.getConvenio();
@@ -166,8 +162,6 @@ public class PacienteService {
       throw new IllegalArgumentException("O nome curto deve ter no máximo 32 caracteres.");
     } else if (sexo.length() > 16) {
       throw new IllegalArgumentException("O sexo deve ter no máximo 16 caracteres.");
-    } else if (localNascimento != null && localNascimento.length() > 64) {
-      throw new IllegalArgumentException("O local de nascimento deve ter no máximo 64 caracteres.");
     } else if (certidaoNascimento != null && certidaoNascimento.length() > 32) {
       throw new IllegalArgumentException("O número da certidão de nascimento deve ter no máximo 32 caracteres.");
     } else if (cpf != null && cpf.length() != 11) {
@@ -224,7 +218,6 @@ public class PacienteService {
     String nomeCurto = pacienteUpdate.getNomeCurto();
     String sexo = pacienteUpdate.getSexo();
     LocalDate dataNascimento = pacienteUpdate.getDataNascimento();
-    String localNascimento = pacienteUpdate.getLocalNascimento();
     String certidaoNascimento = pacienteUpdate.getCertidaoNascimento();
     String cpf = pacienteUpdate.getCpf();
     String convenio = pacienteUpdate.getConvenio();
@@ -252,8 +245,6 @@ public class PacienteService {
       throw new IllegalArgumentException("O nome curto deve ter no máximo 32 caracteres.");
     } else if (sexo.length() > 16) {
       throw new IllegalArgumentException("O sexo deve ter no máximo 16 caracteres.");
-    } else if (localNascimento != null && localNascimento.length() > 64) {
-      throw new IllegalArgumentException("O local de nascimento deve ter no máximo 64 caracteres.");
     } else if (certidaoNascimento != null && certidaoNascimento.length() > 32) {
       throw new IllegalArgumentException("O número da certidão de nascimento deve ter no máximo 32 caracteres.");
     } else if (cpf != null && cpf.length() != 11) {
